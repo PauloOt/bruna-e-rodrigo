@@ -28,7 +28,7 @@ function setup() {
   if (!props.getProperty('SHEET_ID')) {
     const ss = SpreadsheetApp.create('Recados dos convidados');
     ss.getSheets()[0].setName('Recados')
-      .appendRow(['Quando', 'Nome', 'Recado', 'Fotos enviadas', 'Pasta do envio']);
+      .appendRow(['Quando', 'Nome', 'Recado', 'Fotos enviadas', 'Primeira foto']);
     DriveApp.getFileById(ss.getId()).moveTo(folder);
     props.setProperty('SHEET_ID', ss.getId());
   }
@@ -44,17 +44,9 @@ function doPost(e) {
     const req = JSON.parse(e.postData.contents);
     if (req.key !== EVENT_KEY) return json_({ ok: false, error: 'chave inválida' });
 
-    const lock = LockService.getScriptLock();
-    lock.waitLock(20000);
-    let target;
-    try {
-      target = batchFolder_(req);
-    } finally {
-      lock.releaseLock();
-    }
-
     const name = clean_(req.name, 60) || 'Convidado';
     const message = String(req.message || '').trim().slice(0, 2000);
+    let link = '';
 
     if (req.data) {
       const bytes = Utilities.base64Decode(req.data);
@@ -64,35 +56,24 @@ function doPost(e) {
 
       const ext = (String(req.filename || '').match(/\.[a-z0-9]{2,5}$/i) || ['.jpg'])[0].toLowerCase();
       const num = ('0' + ((req.index || 0) + 1)).slice(-2);
-      const file = target.createFile(Utilities.newBlob(bytes, mime, name + ' - ' + num + ext));
+      // Tudo direto na pasta; a hora no começo do nome deixa as fotos em ordem e mostra quem mandou.
+      const when = Utilities.formatDate(new Date(), TZ, "HH'h'mm");
+      const folder = DriveApp.getFolderById(prop_('FOLDER_ID'));
+      const file = folder.createFile(Utilities.newBlob(bytes, mime, when + ' - ' + name + ' - ' + num + ext));
       if (message) file.setDescription(name + ': ' + message);
+      link = file.getUrl();
     }
 
     // Uma linha por envio: no primeiro arquivo (ou no recado sem foto).
     if (!req.data || !req.index) {
       const sheet = SpreadsheetApp.openById(prop_('SHEET_ID')).getSheetByName('Recados');
-      sheet.appendRow([new Date(), cell_(name), cell_(message), req.data ? (req.total || 1) : 0, target.getUrl()]);
+      sheet.appendRow([new Date(), cell_(name), cell_(message), req.data ? (req.total || 1) : 0, link]);
     }
 
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   }
-}
-
-/** Uma subpasta por envio, "21h13 - Tia Cida", para os noivos acharem quem mandou o quê. */
-function batchFolder_(req) {
-  const props = PropertiesService.getScriptProperties();
-  const batch = String(req.batch || '').replace(/[^a-z0-9-]/gi, '').slice(0, 40);
-  const key = 'BATCH_' + batch;
-  const existing = batch && props.getProperty(key);
-  if (existing) return DriveApp.getFolderById(existing);
-
-  const root = DriveApp.getFolderById(prop_('FOLDER_ID'));
-  const when = Utilities.formatDate(new Date(), TZ, "HH'h'mm");
-  const folder = root.createFolder(when + ' - ' + (clean_(req.name, 60) || 'Convidado'));
-  if (batch) props.setProperty(key, folder.getId());
-  return folder;
 }
 
 function prop_(k) {

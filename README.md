@@ -13,9 +13,9 @@ Não há banco de dados nem login próprio: o Drive guarda as fotos e a conta Go
 
 Uma pasta **Casamento Bruna & Rodrigo — fotos dos convidados** no Drive, com:
 
-- uma subpasta por envio, por exemplo `21h13 - Tia Cida`, com as fotos dentro;
+- as fotos soltas na pasta, sem subpastas, com nomes como `21h13 - Tia Cida - 01.jpg` (a hora vem primeiro, então a ordem por nome é a ordem da festa);
 - o recado gravado na descrição de cada foto (aparece em "Detalhes" no Drive);
-- a planilha **Recados dos convidados**, com uma linha por envio: quando, nome, recado, quantas fotos e o link da subpasta.
+- a planilha **Recados dos convidados**, com uma linha por envio: quando, nome, recado, quantas fotos e o link da primeira foto.
 
 As fotos chegam redimensionadas para 2560 px no lado maior (JPEG, ~1 MB cada), o que já é ótimo para imprimir 20 × 30. Vídeos vão no original, até 30 MB.
 

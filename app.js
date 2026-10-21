@@ -19,7 +19,6 @@
   const aviso = $('aviso');
 
   let itens = []; // { file, url, li }
-  let lote = null; // mantido no "tentar de novo" para cair na mesma pasta do Drive
 
   $('demo').hidden = !DEMO;
 
@@ -82,8 +81,7 @@
     if (enviar.disabled) return;
     try { localStorage.setItem('nome', nome.value.trim()); } catch {}
 
-    lote = lote || Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
-    const base = { key: EVENT_KEY, batch: lote, name: nome.value.trim(), message: recado.value.trim() };
+    const base = { key: EVENT_KEY, name: nome.value.trim(), message: recado.value.trim() };
     const pendentes = itens.filter((i) => !i.li.classList.contains('enviada'));
     const totalLote = itens.length;
 
@@ -132,7 +130,6 @@
 
     $('obrigado-texto').textContent = total === 0 ? 'Seu recado já está com a gente.'
       : total === 1 ? 'Sua foto já está com a gente.' : `Suas ${total} fotos já estão com a gente.`;
-    lote = null;
     $('tela-envio').hidden = true;
     $('tela-obrigado').hidden = false;
     window.scrollTo({ top: $('tela-obrigado').offsetTop - 20, behavior: 'smooth' });
@@ -141,7 +138,6 @@
   $('mais').addEventListener('click', () => {
     for (const i of itens) URL.revokeObjectURL(i.url);
     itens = [];
-    lote = null;
     lista.replaceChildren();
     recado.value = '';
     $('tela-obrigado').hidden = true;
