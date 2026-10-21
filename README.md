@@ -27,8 +27,9 @@ O ideal é fazer logado na conta de um dos noivos, para as fotos já caírem no 
 
 1. Abra <https://script.google.com> → **Novo projeto**. Dê o nome "Fotos do casamento".
 2. Apague o conteúdo do `Código.gs` e cole o conteúdo de [`apps-script/Code.gs`](apps-script/Code.gs).
-3. No menu de funções lá em cima, escolha **setup** e clique em **Executar**. O Google pede autorização (Drive e Planilhas): aceite. Em "app não verificado", clique em *Avançado → Acessar*.
-4. O log mostra o link da pasta criada. A planilha de recados fica dentro dela.
+   - Para usar uma pasta que já existe, abra a pasta no Drive e copie o trecho do link depois de `/folders/`. Cole esse trecho em `const PASTA_ID = '';`, entre as aspas. Se deixar vazio, o script cria uma pasta nova.
+3. Salve (Ctrl+S). No menu de funções lá em cima, escolha **setup** e clique em **Executar**. O Google pede autorização (Drive e Planilhas): aceite. Em "app não verificado", clique em *Avançado → Acessar*.
+4. O log mostra o link da pasta. A planilha de recados é criada dentro dela.
 5. **Implantar → Nova implantação** → engrenagem → **App da Web**:
    - Executar como: **Eu**
    - Quem pode acessar: **Qualquer pessoa**

@@ -9,7 +9,9 @@
 // Precisa ser igual ao EVENT_KEY do config.js do site.
 const EVENT_KEY = 'bruna-rodrigo-2027';
 
-// Nome da pasta criada no Drive na primeira execução de setup().
+// ID de uma pasta que já existe no Drive: é o trecho depois de /folders/ no link dela.
+// Vazio = setup() cria uma pasta nova com o FOLDER_NAME.
+const PASTA_ID = '';
 const FOLDER_NAME = 'Casamento Bruna & Rodrigo — fotos dos convidados';
 
 const MAX_BYTES = 40 * 1024 * 1024;
@@ -18,11 +20,9 @@ const TZ = 'America/Sao_Paulo';
 /** Rode uma vez pelo editor: cria a pasta e a planilha e guarda os IDs. */
 function setup() {
   const props = PropertiesService.getScriptProperties();
-  let folderId = props.getProperty('FOLDER_ID');
-  if (!folderId) {
-    folderId = DriveApp.createFolder(FOLDER_NAME).getId();
-    props.setProperty('FOLDER_ID', folderId);
-  }
+  let folderId = PASTA_ID || props.getProperty('FOLDER_ID');
+  if (!folderId) folderId = DriveApp.createFolder(FOLDER_NAME).getId();
+  props.setProperty('FOLDER_ID', folderId);
   const folder = DriveApp.getFolderById(folderId);
 
   if (!props.getProperty('SHEET_ID')) {
