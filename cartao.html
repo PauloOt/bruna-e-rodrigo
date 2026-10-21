@@ -148,11 +148,18 @@
       color: var(--suave);
     }
 
+    .link {
+      margin: 2.6mm 0 0;
+      font-size: 3.4mm;
+      letter-spacing: .03em;
+      color: var(--verde);
+    }
+
     .passos {
       display: flex;
       justify-content: center;
       gap: 3.5mm;
-      margin: 4.5mm 0 0;
+      margin: 3mm 0 0;
       padding: 0;
       list-style: none;
       font-family: 'Cormorant SC', serif;
@@ -207,6 +214,7 @@
     <p class="convite">Hoje você vê a festa de um jeito que a gente não vai ver. Registre do seu olhar e mande pra nós.</p>
 
     <div class="qr" id="qr"><div class="vazio">o QR code aparece aqui</div></div>
+    <p class="link" id="link"></p>
 
     <ol class="passos">
       <li><b>1</b>aponte a câmera</li>
@@ -232,6 +240,8 @@
       const local = !/^https:\/\//.test(url) || /localhost|127\.0\.0\.1/.test(url);
       alerta.hidden = !local;
       alerta.textContent = 'Atenção: este endereço só funciona no seu computador. Publique o site e use o link https antes de imprimir.';
+      // Escrito embaixo do QR para quem preferir digitar: sem "https://" e sem a barra final.
+      document.getElementById('link').textContent = url.replace(/^https?:\/\//, '').replace(/\/$/, '');
       if (!url) {
         caixa.innerHTML = '<div class="vazio">o QR code aparece aqui</div>';
         return;
