@@ -5,10 +5,11 @@
 - Apps Script (`apps-script/Code.gs`): grava no Drive dos noivos, uma subpasta por envio, recado na descrição e na planilha "Recados".
 - Cartão da mesa 10 × 15 cm (`cartao.html`) com QR code, link escrito embaixo e impressão em PDF.
 - Site publicado na Vercel: https://bruna-e-rodrigo.vercel.app
+- PDF do cartão para a gráfica: `impressao/cartao-mesa.pdf` (10 × 15 cm, QR conferido por leitor).
 
 ## Falta
 - Implantar o Apps Script na conta dos noivos e colar a URL em `config.js`.
-- Gerar o PDF do cartão em https://bruna-e-rodrigo.vercel.app/cartao.html e escanear o QR num celular antes de mandar para a gráfica.
+- Escanear o QR do cartão impresso (prova da gráfica) com um celular.
 - Teste real pelo celular (iPhone e Android) antes do dia.
 
 ## Ideias para depois
