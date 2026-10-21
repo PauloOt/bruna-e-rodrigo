@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cartão da mesa · Bruna &amp; Rodrigo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+SC:wght@400;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --verde: #6a7940;
+      --qr: #3d4722;
+      --texto: #504e4e;
+      --suave: #8a8686;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 24px 16px 48px;
+      background: #e9e8e2;
+      color: var(--texto);
+      font-family: 'Cormorant Garamond', serif;
+    }
+
+    /* ---------- painel (não imprime) ---------- */
+
+    .painel {
+      max-width: 620px;
+      margin: 0 auto 24px;
+      padding: 16px 18px;
+      background: #fff;
+      border-radius: 6px;
+      font-size: 17px;
+    }
+
+    .painel label { display: block; font-family: 'Cormorant SC', serif; letter-spacing: .05em; }
+
+    .painel input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 12px;
+      border: 1px solid #dcdcd2;
+      border-radius: 3px;
+      font: inherit;
+    }
+
+    .painel .linha { display: flex; gap: 10px; margin-top: 12px; flex-wrap: wrap; align-items: center; }
+
+    .painel button {
+      padding: 10px 18px;
+      border: 0;
+      border-radius: 3px;
+      background: var(--verde);
+      color: #fff;
+      font-family: 'Cormorant SC', serif;
+      font-size: 17px;
+      letter-spacing: .06em;
+      cursor: pointer;
+    }
+
+    .painel small { color: var(--suave); }
+    .painel .alerta { color: #a14b3d; }
+
+    /* ---------- cartão 10 x 15 cm ---------- */
+
+    .cartao {
+      position: relative;
+      width: 100mm;
+      height: 150mm;
+      margin: 0 auto;
+      padding: 19mm 10mm 9mm;
+      overflow: hidden;
+      background: #fbfbf9;
+      box-shadow: 0 6px 24px rgba(0,0,0,.12);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .cartao::before {
+      content: '';
+      position: absolute;
+      inset: 4mm;
+      border: .3mm solid rgba(106,121,64,.45);
+      pointer-events: none;
+    }
+
+    .flor { position: absolute; width: 30mm; pointer-events: none; }
+    .flor.a { top: -8mm; left: -10mm; transform: rotate(-12deg); }
+    .flor.b { bottom: -12mm; right: -11mm; transform: rotate(168deg); }
+
+    .casal {
+      margin: 0;
+      font-family: 'Mrs Saint Delafield', cursive;
+      font-weight: 400;
+      color: var(--verde);
+      font-size: 13mm;
+      line-height: 1;
+    }
+
+    .seja {
+      margin: 5mm 0 0;
+      font-family: 'Cormorant SC', serif;
+      font-size: 5.2mm;
+      letter-spacing: .14em;
+    }
+
+    .fotografo {
+      margin: -2mm 0 0;
+      font-family: 'Mrs Saint Delafield', cursive;
+      font-weight: 400;
+      color: var(--verde);
+      font-size: 15mm;
+      line-height: 1;
+    }
+
+    .convite {
+      margin: 2mm 0 0;
+      font-size: 3.9mm;
+      line-height: 1.35;
+      max-width: 76mm;
+      text-wrap: balance;
+    }
+
+    .qr {
+      position: relative;
+      width: 42mm;
+      height: 42mm;
+      margin: 4mm 0 0;
+      padding: 3.6mm;
+      background: #fff;
+      border: .35mm solid var(--verde);
+      outline: .25mm solid var(--verde);
+      outline-offset: 1mm;
+    }
+
+    .qr svg { display: block; width: 100%; height: 100%; }
+
+    .qr .vazio {
+      display: grid;
+      place-items: center;
+      height: 100%;
+      font-size: 3.4mm;
+      color: var(--suave);
+    }
+
+    .passos {
+      display: flex;
+      justify-content: center;
+      gap: 3.5mm;
+      margin: 4.5mm 0 0;
+      padding: 0;
+      list-style: none;
+      font-family: 'Cormorant SC', serif;
+      font-size: 3.3mm;
+      letter-spacing: .05em;
+    }
+
+    .passos b { color: var(--verde); font-weight: 600; margin-right: .8mm; }
+
+    .data {
+      margin: auto 0 0;
+      font-family: 'Cormorant SC', serif;
+      font-size: 3.2mm;
+      letter-spacing: .2em;
+      color: var(--suave);
+    }
+
+    @page { size: 100mm 150mm; margin: 0; }
+
+    @media print {
+      body { padding: 0; background: none; }
+      .painel { display: none; }
+      .cartao { box-shadow: none; margin: 0; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media screen and (max-width: 420px) {
+      .cartao { zoom: .85; }
+    }
+  </style>
+</head>
+<body>
+  <div class="painel">
+    <label for="url">Endereço que o QR code abre</label>
+    <input id="url" type="url" inputmode="url" placeholder="https://…">
+    <div class="linha">
+      <button id="imprimir" type="button">Imprimir / salvar PDF</button>
+      <small>Tamanho 10 × 15 cm. No diálogo, escolha “Salvar como PDF” e margens “Nenhuma”.</small>
+    </div>
+    <p id="alerta" class="alerta" hidden></p>
+  </div>
+
+  <article class="cartao">
+    <img class="flor a" src="assets/flores.png" alt="">
+    <img class="flor b" src="assets/flores.png" alt="">
+
+    <h1 class="casal">Bruna &amp; Rodrigo</h1>
+
+    <p class="seja">Seja nosso</p>
+    <p class="fotografo">fotógrafo</p>
+
+    <p class="convite">Hoje você vê a festa de um jeito que a gente não vai ver. Registre do seu olhar e mande pra nós.</p>
+
+    <div class="qr" id="qr"><div class="vazio">o QR code aparece aqui</div></div>
+
+    <ol class="passos">
+      <li><b>1</b>aponte a câmera</li>
+      <li><b>2</b>escolha as fotos</li>
+      <li><b>3</b>envie</li>
+    </ol>
+
+    <p class="data">16 · 01 · 2027</p>
+  </article>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+  <script>
+    const campo = document.getElementById('url');
+    const alerta = document.getElementById('alerta');
+    const caixa = document.getElementById('qr');
+
+    // Padrão: a página de envio que está ao lado deste cartão, já no endereço publicado.
+    const params = new URLSearchParams(location.search);
+    campo.value = params.get('url') || new URL('./', location.href).href;
+
+    function desenhar() {
+      const url = campo.value.trim();
+      const local = !/^https:\/\//.test(url) || /localhost|127\.0\.0\.1/.test(url);
+      alerta.hidden = !local;
+      alerta.textContent = 'Atenção: este endereço só funciona no seu computador. Publique o site e use o link https antes de imprimir.';
+      if (!url) {
+        caixa.innerHTML = '<div class="vazio">o QR code aparece aqui</div>';
+        return;
+      }
+      const qr = qrcode(0, 'M');
+      qr.addData(url);
+      qr.make();
+      const n = qr.getModuleCount();
+      let d = '';
+      for (let y = 0; y < n; y++)
+        for (let x = 0; x < n; x++)
+          if (qr.isDark(y, x)) d += `M${x} ${y}h1v1h-1z`;
+      caixa.innerHTML = `<svg viewBox="0 0 ${n} ${n}" shape-rendering="crispEdges" role="img" aria-label="QR code para ${url}"><path fill="#3d4722" d="${d}"/></svg>`;
+    }
+
+    campo.addEventListener('input', desenhar);
+    document.getElementById('imprimir').addEventListener('click', () => window.print());
+    desenhar();
+  </script>
+</body>
+</html>

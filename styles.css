@@ -1,0 +1,330 @@
+:root {
+  --verde: #6a7940;
+  --verde-escuro: #556233;
+  --verde-claro: #eef0e6;
+  --texto: #504e4e;
+  --texto-suave: #8a8686;
+  --fundo: #fafaf8;
+  --linha: #dcdcd2;
+  --erro: #a14b3d;
+  --script: 'Mrs Saint Delafield', cursive;
+  --caps: 'Cormorant SC', serif;
+  --serif: 'Cormorant Garamond', serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--serif);
+  font-size: 19px;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+.pagina {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 0 20px 64px;
+}
+
+/* ---------- topo ---------- */
+
+.hero {
+  position: relative;
+  margin: 0 -20px;
+}
+
+.hero img {
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+          mask-image: linear-gradient(to bottom, #000 62%, transparent 100%);
+}
+
+.nomes {
+  position: relative;
+  margin: -84px 0 0;
+  text-align: center;
+  font-family: var(--script);
+  font-weight: 400;
+  color: var(--verde);
+  font-size: 76px;
+  line-height: .9;
+}
+
+.nomes .e { font-size: .8em; margin-right: -.08em; }
+
+.data {
+  margin: 10px 0 0;
+  text-align: center;
+  font-family: var(--caps);
+  letter-spacing: .08em;
+  font-size: 17px;
+}
+
+.flor {
+  position: absolute;
+  width: 120px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.titulo { position: relative; }
+.titulo .flor { bottom: -54px; width: 104px; }
+
+.flor.dir { right: -38px; }
+.flor.esq { left: -44px; }
+
+/* ---------- textos ---------- */
+
+.titulo-script {
+  margin: 0;
+  font-family: var(--script);
+  font-weight: 400;
+  color: var(--verde);
+  font-size: 54px;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.caps {
+  font-family: var(--caps);
+  letter-spacing: .06em;
+}
+
+.intro {
+  margin: 44px 0 0;
+  text-align: center;
+}
+
+.intro p {
+  margin: 10px auto 0;
+  max-width: 400px;
+}
+
+.divisor {
+  width: 90px;
+  height: 1px;
+  margin: 34px auto;
+  background: linear-gradient(to right, transparent, var(--verde), transparent);
+}
+
+/* ---------- formulário ---------- */
+
+.escolher {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 30px 20px;
+  border: 1px dashed var(--verde);
+  border-radius: 4px;
+  background: var(--verde-claro);
+  text-align: center;
+  cursor: pointer;
+}
+
+.escolher:focus-within { outline: 2px solid var(--verde); outline-offset: 3px; }
+
+.escolher input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.icone {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  background: var(--verde);
+  box-shadow: 0 0 0 3px var(--verde-claro), 0 0 0 4.5px var(--verde);
+}
+
+.icone svg { width: 32px; height: 32px; fill: none; stroke: #fff; stroke-width: 1.8; }
+
+.escolher strong {
+  font-family: var(--caps);
+  font-weight: 400;
+  font-size: 22px;
+  letter-spacing: .05em;
+}
+
+.escolher small { color: var(--texto-suave); font-size: 16px; }
+
+.miniaturas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.miniaturas li {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 3px;
+  background: var(--linha);
+}
+
+.miniaturas img, .miniaturas video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.miniaturas .tirar {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  color: var(--texto);
+  font-size: 18px;
+  line-height: 28px;
+  cursor: pointer;
+}
+
+.miniaturas li.enviada::after,
+.miniaturas li.falhou::after {
+  content: '✓';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(106,121,64,.55);
+  color: #fff;
+  font-size: 34px;
+}
+
+.miniaturas li.falhou::after { content: '!'; background: rgba(161,75,61,.6); }
+
+.campo { margin: 22px 0 0; }
+
+.campo label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--caps);
+  font-size: 17px;
+  letter-spacing: .05em;
+}
+
+.campo label span { color: var(--texto-suave); font-family: var(--serif); font-style: italic; letter-spacing: 0; }
+
+.campo input, .campo textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--linha);
+  border-radius: 3px;
+  background: #fff;
+  color: var(--texto);
+  font: inherit;
+  font-size: 18px;
+}
+
+.campo textarea { min-height: 110px; resize: vertical; }
+
+.campo input:focus, .campo textarea:focus {
+  outline: none;
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px var(--verde-claro);
+}
+
+.botao {
+  display: block;
+  width: 100%;
+  margin: 28px 0 0;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 3px;
+  background: var(--verde);
+  color: #fff;
+  font-family: var(--caps);
+  font-size: 21px;
+  letter-spacing: .08em;
+  cursor: pointer;
+}
+
+.botao:hover { background: var(--verde-escuro); }
+.botao:disabled { opacity: .5; cursor: default; }
+
+.botao.secundario {
+  background: transparent;
+  color: var(--verde);
+  border: 1px solid var(--verde);
+}
+
+.aviso {
+  margin: 14px 0 0;
+  text-align: center;
+  font-size: 16px;
+  color: var(--texto-suave);
+}
+
+.aviso.erro { color: var(--erro); }
+
+/* ---------- progresso / obrigado ---------- */
+
+.progresso { margin: 28px 0 0; text-align: center; }
+
+.barra {
+  height: 6px;
+  margin: 10px 0 0;
+  border-radius: 3px;
+  background: var(--linha);
+  overflow: hidden;
+}
+
+.barra div {
+  width: 0;
+  height: 100%;
+  background: var(--verde);
+  transition: width .3s ease;
+}
+
+.obrigado { text-align: center; padding-top: 34px; }
+
+.obrigado img {
+  width: 230px;
+  margin: 0 auto 18px;
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 52%, transparent 72%);
+          mask-image: radial-gradient(ellipse at center, #000 52%, transparent 72%);
+}
+
+.obrigado p { margin: 10px auto 0; max-width: 380px; }
+
+.demo {
+  margin: 0 -20px 0;
+  padding: 6px 12px;
+  background: #f3ecd9;
+  font-size: 14px;
+  text-align: center;
+}
+
+.rodape {
+  margin-top: 54px;
+  text-align: center;
+  font-size: 15px;
+  color: var(--texto-suave);
+}
+
+[hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .barra div { transition: none; }
+}

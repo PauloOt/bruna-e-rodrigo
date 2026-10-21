@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bruna &amp; Rodrigo · Nossas fotos</title>
+  <meta name="description" content="Envie para os noivos as fotos que você tirou no casamento.">
+  <meta name="theme-color" content="#fafaf8">
+  <meta property="og:title" content="Bruna & Rodrigo — seja nosso fotógrafo">
+  <meta property="og:image" content="assets/casal.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Cormorant+SC:wght@400;600&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="pagina">
+    <div class="demo" id="demo" hidden>Modo demonstração: nada é enviado de verdade.</div>
+
+    <header class="hero">
+      <img src="assets/casal.jpg" alt="Bruna e Rodrigo na praia" width="900" height="933">
+    </header>
+    <div class="titulo">
+      <h1 class="nomes">Bruna<br><span class="e">&amp;</span>Rodrigo</h1>
+      <p class="data">16 de janeiro de 2027</p>
+      <img class="flor dir" src="assets/flores.png" alt="">
+    </div>
+
+    <!-- 1. escolher e enviar -->
+    <section id="tela-envio">
+      <div class="intro">
+        <h2 class="titulo-script">seja nosso fotógrafo</h2>
+        <p>Hoje você vê a festa de um jeito que a gente não vai ver. Registre do seu olhar e mande pra nós: cada foto vai direto para o nosso álbum.</p>
+      </div>
+
+      <div class="divisor"></div>
+
+      <form id="form" novalidate>
+        <label class="escolher">
+          <span class="icone" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 8.5A1.5 1.5 0 0 1 5.5 7h2l1.4-2h6.2l1.4 2h2A1.5 1.5 0 0 1 20 8.5v9a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17.5z"/><circle cx="12" cy="13" r="3.6"/></svg>
+          </span>
+          <strong>Escolher fotos</strong>
+          <small>da galeria ou tirar agora · pode escolher várias</small>
+          <input id="arquivos" type="file" accept="image/*,video/*" multiple>
+        </label>
+
+        <ul class="miniaturas" id="miniaturas"></ul>
+
+        <div class="campo">
+          <label for="nome">Seu nome <span>(opcional)</span></label>
+          <input id="nome" name="nome" type="text" autocomplete="name" maxlength="60" placeholder="Para sabermos quem fotografou">
+        </div>
+
+        <div class="campo">
+          <label for="recado">Um recado para os noivos <span>(opcional)</span></label>
+          <textarea id="recado" name="recado" maxlength="2000" placeholder="Deixe seu carinho, um conselho, uma lembrança…"></textarea>
+        </div>
+
+        <button class="botao" id="enviar" type="submit" disabled>Enviar para os noivos</button>
+        <p class="aviso" id="aviso" role="status" aria-live="polite">Escolha ao menos uma foto ou escreva um recado.</p>
+      </form>
+
+      <div class="progresso" id="progresso" hidden>
+        <p class="caps" id="progresso-texto">Enviando…</p>
+        <div class="barra"><div id="barra"></div></div>
+        <p class="aviso">Pode deixar a tela aberta, já já termina.</p>
+      </div>
+    </section>
+
+    <!-- 2. obrigado -->
+    <section class="obrigado" id="tela-obrigado" hidden>
+      <img src="assets/alianca.jpg" alt="" width="600" height="814">
+      <h2 class="titulo-script">obrigado!</h2>
+      <p id="obrigado-texto">Suas fotos já estão com a gente.</p>
+      <p>Viu outro momento bonito? Pode mandar quantas quiser.</p>
+      <button class="botao secundario" id="mais" type="button">Enviar mais fotos</button>
+    </section>
+
+    <img class="flor esq" src="assets/flores-esq.png" alt="" style="bottom: 30px">
+    <p class="rodape caps">Verde Nobre Eventos · Cotia, SP</p>
+  </main>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
